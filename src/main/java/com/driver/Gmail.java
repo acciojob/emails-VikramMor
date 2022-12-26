@@ -23,15 +23,20 @@ public class Gmail extends Email {
         this.Trash = new ArrayList<>();
     }
 
+    public void setInboxCapacity(int inboxCapacity) {
+        this.inboxCapacity = inboxCapacity;
+    }
+
     public void receiveMail(Date date, String sender, String message){
-        Mail mail;
+        Mail mail = new Mail(date, sender, message);
         if(this.Inbox.size() == this.inboxCapacity){
 //            mail = this.Inbox.get(0);
             this.Trash.add(this.Inbox.get(0));
             this.Inbox.remove(0);
+            this.Inbox.add(mail);
         }
-        mail = new Mail(date, sender, message);
-        this.Inbox.add(mail);
+        else
+            this.Inbox.add(mail);
     }
 
     public void deleteMail(String message){
