@@ -20,16 +20,30 @@ public class Email {
 
     public void changePassword(String oldPassword, String newPassword){
 
-        String SPECIAL_CHARACTERS = "!,#,$,%,^,&,*,|,@";
-
-        if (this.password.equals(oldPassword)  && password.length() >= 8)
-        {
-            for (int i = 0; i < password.length() - 1; i++)
-            {
-                if (Character.isUpperCase(password.charAt(i)) && Character.isLowerCase(password.charAt(i)) && Character.isDigit(password.charAt(i)) && SPECIAL_CHARACTERS.contains(password))
-                {
-                    this.password = newPassword;
+        if(this.password.equals(oldPassword)){
+            boolean Upper = false;
+            boolean lower = false;
+            boolean digit = false;
+            boolean special = false;
+            if(newPassword.length()<8){
+                return;
+            }
+            for(int i = 0;i<newPassword.length();i++){
+                if(Character.isUpperCase(newPassword.charAt(i))){
+                    Upper = true;
                 }
+                else if(Character.isLowerCase(newPassword.charAt(i))){
+                    lower = true;
+                }
+                else if(Character.isDigit(newPassword.charAt(i))){
+                    digit = true;
+                }
+                else if(!Character.isAlphabetic(newPassword.charAt(i)) && !Character.isDigit(newPassword.charAt(i))){
+                    special = true;
+                }
+            }
+            if(Upper && lower && digit && special){
+                this.password = newPassword;
             }
         }
     }
